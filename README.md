@@ -21,11 +21,11 @@ This project is a RESTful API built using Node.js for managing books. It allows 
 - [Test](#test)
 - [Support](#support)
 
-## API Endpoints
-
-List the available API endpoints and their usage.
+## API Endpoints and Usage
+To interact with the API, you can use tools like Postman or any API testing tool. Here's how you can use the API:
 
 ### Create a Book
+Make a POST request to /books/add with a JSON body containing book details like title, author, and summary.
 
 - **Endpoint:** `POST /books/add`
 - **Description:** Create a new book.
@@ -50,6 +50,7 @@ List the available API endpoints and their usage.
     ```
 
 ### Get All Books
+Send a GET request to /books with optional query parameters to filter and paginate the results.
 
 - **Endpoint:** `GET /books`
 - **Description:** Get a list of all books.
@@ -74,6 +75,7 @@ List the available API endpoints and their usage.
     ```
 
 ### Get a Book by ID
+Issue a GET request to /books/{bookId} to retrieve a specific book by its unique ID.
 
 - **Endpoint:** `GET /books/:id`
 - **Description:** Get a book by its ID.
@@ -89,6 +91,7 @@ List the available API endpoints and their usage.
     ```
 
 ### Update a Book
+Use a PATCH request to /books with
 
 - **Endpoint:** `PATCH /books/update/:id`
 - **Description:** Update a book by its ID.
@@ -114,6 +117,7 @@ List the available API endpoints and their usage.
     ```
 
 ### Delete a Book
+Use a POST request to /books with
 
 - **Endpoint:** `DELETE /books/delete/:id`
 - **Description:** Delete a book by its ID.
@@ -125,31 +129,10 @@ List the available API endpoints and their usage.
     }
     ```
 
-## Getting Started
-
-Explain how to set up and run the application locally.
-
 ### Prerequisites
 
-- Node.js and npm installed.
+- Node.js and npm and yarn installed.
 - MongoDB installed and running.
-
-## Usage
-
-To interact with the API, you can use tools like Postman or any API testing tool. Here's how you can use the API:
-
-Create a Book:
-
-Make a POST request to /books/addBook with a JSON body containing book details like title, author, and summary.
-Get All Books:
-
-Send a GET request to /books with optional query parameters to filter and paginate the results.
-Get a Book by ID:
-
-Issue a GET request to /books/{bookId} to retrieve a specific book by its unique ID.
-Update a Book:
-
-Use a PATCH request to /books/{bookId} with
 
 
 ## Decisions and Assumptions
