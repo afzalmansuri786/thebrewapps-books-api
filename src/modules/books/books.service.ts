@@ -77,6 +77,7 @@ export class BooksService {
       const book = await this.bookModel.findById(id);
       if (!book) throw new NotFoundException('Book not found');
       // console.log('FindOne : ', book);
+      
       return book;
     } catch (error) {
       throw new NotFoundException('Book not found: ' + error.message);
