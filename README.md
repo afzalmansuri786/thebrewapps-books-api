@@ -60,6 +60,7 @@ Send a GET request to /books with optional query parameters to filter and pagina
   - `summary` (optional): Filter by book summary.
   - `limit` (optional): Limit the number of results.
   - `skip` (optional): Skip a certain number of results.
+  - `sortDirection` (optional): To sort ascendingly by serialNumber (By Default in descending by serialNumber).
 - **Response:**
   - Example:
     ```json
