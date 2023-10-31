@@ -1,7 +1,4 @@
-<p align="center">
-  <h1> RESTful Book Management API</h1>
-</p>
-
+<p align="center"><h1> RESTful Book Management API</h1></p>
 
 This project is a RESTful API built using Node.js for managing books. It allows users to perform operations such as creating, retrieving, updating, and deleting books. The API serves as a robust backend system for a book management application.
 
@@ -30,7 +27,7 @@ List the available API endpoints and their usage.
 
 ### Create a Book
 
-- **Endpoint:** `POST /books/addBook`
+- **Endpoint:** `POST /books/add`
 - **Description:** Create a new book.
 - **Request Body:**
   - Example:
@@ -93,7 +90,7 @@ List the available API endpoints and their usage.
 
 ### Update a Book
 
-- **Endpoint:** `POST /books/update/:id`
+- **Endpoint:** `PATCH /books/update/:id`
 - **Description:** Update a book by its ID.
 - **Request Body:**
   - Example:
@@ -118,7 +115,7 @@ List the available API endpoints and their usage.
 
 ### Delete a Book
 
-- **Endpoint:** `POST /books/delete/:id`
+- **Endpoint:** `DELETE /books/delete/:id`
 - **Description:** Delete a book by its ID.
 - **Response:**
   - Example:
@@ -137,38 +134,6 @@ Explain how to set up and run the application locally.
 - Node.js and npm installed.
 - MongoDB installed and running.
 
-### Installation
-
-1. Clone the repository:
-
-   ```bash
-   git clone https://github.com/thebrewapps-books.git
-   cd thebrewapps-books
-   ```
-
-2. Install dependencies:
-
-   ```bash
-    npm install
-      or
-    yarn
-   ```
-
-3. Configure environment variables by creating a `.env` file with the following content:
-
-   ```env
-   MONGO_URI=your-mongodb-uri
-   PORT=5000
-   ```
-
-4. Start the application:
-
-   ```bash
-   npm run start
-      or
-    yarn run start
-   ```
-
 ## Usage
 
 To interact with the API, you can use tools like Postman or any API testing tool. Here's how you can use the API:
@@ -184,10 +149,8 @@ Get a Book by ID:
 Issue a GET request to /books/{bookId} to retrieve a specific book by its unique ID.
 Update a Book:
 
-Use a PATCH request to /books/{bookId} with a JSON body containing the fields to update, like the book's summary.
-Delete a Book:
+Use a PATCH request to /books/{bookId} with
 
-Send a DELETE request to /books/{bookId} to remove a book from the database.
 
 ## Decisions and Assumptions
 
@@ -277,5 +240,4 @@ $ yarn run test:cov
 Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
 
 Nest is [MIT licensed](LICENSE).
-# thebrewapps-books-api
 # thebrewapps-books-api
