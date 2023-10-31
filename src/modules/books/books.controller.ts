@@ -13,7 +13,7 @@ export class BooksController {
     return this.booksService.createOneBook(createBookDto);
   }
 
-  @Get('/')
+  @Get('')
   async findAll(@Query() findAllBooksDto: GetAllBooksDto) {
     return this.booksService.findAllBook(findAllBooksDto);
   }

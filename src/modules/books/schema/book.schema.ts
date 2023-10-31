@@ -13,13 +13,17 @@ export class Book {
 
   @Prop({ type: String })
   summary: string;
+
+  @Prop({ type: Number, unique: true, required: false })
+  serialNumber: number;
 }
 
 export const BookSchema = SchemaFactory.createForClass(Book);
 
-BookSchema.pre('save', function (next) {
+BookSchema.pre('save', async function (next) {
   if (this.title.length < 2) {
     throw new Error('Title length is not acceptable.');
   }
+
   next();
 });

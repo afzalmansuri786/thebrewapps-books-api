@@ -8,18 +8,12 @@ import { GetAllBooksDto } from './dto/get-all-books.dto';
 
 @Injectable()
 export class BooksService {
-  constructor(@InjectModel(Book.name) private readonly bookModel: Model<Book>) {
-    // this.createOneBook({
-    //   title: 'Book 3',
-    //   author: 'author 1',
-    //   summary: 'summary 3',
-    // });
-    // this.updateOneBook('653e4c52988825550f488a05', {
-    //   summary: 'Summary updated 2',
-    // });
-    // this.deleteOneBook('653e4e9404c2e8117f64f150');
-    // this.findAllBook({ author: 'author 1', summary: '1' });
-    // this.findOneBook('653e4b3ca2d8a64b7921ada1');
+  constructor(
+    @InjectModel(Book.name) private readonly bookModel: Model<Book>,
+  ) {}
+
+  async countAllBooks() {
+    return await this.bookModel.find().countDocuments();
   }
 
   async createOneBook(createBookDto: CreateBookDto) {
@@ -28,11 +22,13 @@ export class BooksService {
         title: createBookDto.title,
       });
       if (foundBook) {
-        console.log({ message: 'Book title already exists' });
+        // console.log({ message: 'Book title already exists' });
         return { message: 'Book title already exists' };
       }
+      const count = await this.bookModel.find({}).countDocuments();
+      createBookDto['serialNumber'] = count + 1;
       const createBook = await this.bookModel.create(createBookDto);
-      console.log(createBook);
+      // console.log(createBook);
       return createBook;
     } catch (error) {
       throw new Error('Failed to create a book: ' + error.message);
@@ -41,31 +37,35 @@ export class BooksService {
 
   async findAllBook(searchDto?: GetAllBooksDto) {
     try {
-      const limit: number = searchDto?.limit || 10;
-      const skip: number = searchDto?.skip || 0;
+      const limit: number = searchDto?.limit ?? 10;
+      const skip: number = searchDto?.skip ?? 0;
       const query: any = {};
 
       if (searchDto?.title) {
-        query.title = searchDto.title;
+        query.title = { $regex: new RegExp(searchDto.title, 'i') };
       }
 
       if (searchDto?.author) {
-        query.author = searchDto.author;
+        query.author = { $regex: new RegExp(searchDto.author, 'i') };
       }
 
       if (searchDto?.summary) {
         query.summary = { $regex: new RegExp(searchDto.summary, 'i') };
       }
 
+      const sortDirection = searchDto?.sortDirection;
+
+      console.log(query);
       const books = await this.bookModel
         .find(query)
+        .sort({ serialNumber: sortDirection === 'asc' ? 1 : -1 })
         .skip(skip)
         .limit(limit)
         .lean();
 
+      // console.log('FindAll : ', books);
       if (books.length === 0) return { message: 'No books' };
 
-      console.log('FindAll : ', books);
       return books;
     } catch (error) {
       throw new Error('Failed to retrieve books: ' + error.message);
@@ -76,7 +76,7 @@ export class BooksService {
     try {
       const book = await this.bookModel.findById(id);
       if (!book) throw new NotFoundException('Book not found');
-      console.log('FindOne : ', book);
+      // console.log('FindOne : ', book);
       return book;
     } catch (error) {
       throw new NotFoundException('Book not found: ' + error.message);
@@ -92,7 +92,7 @@ export class BooksService {
       if (!updateBook) {
         throw new NotFoundException('Book not updated');
       }
-      console.log({ updateBook, message: 'Book updated successfully' });
+      // console.log({ updateBook, message: 'Book updated successfully' });
       return { updateBook, message: 'Book updated successfully' };
     } catch (error) {
       throw new Error('Failed to update the book: ' + error.message);
@@ -105,7 +105,7 @@ export class BooksService {
       if (!deleteBook) {
         throw new NotFoundException('Book not deleted');
       }
-      console.log({ message: 'Book deleted successfully' });
+      // console.log({ message: 'Book deleted successfully' });
       return { message: 'Book deleted successfully' };
     } catch (error) {
       throw new Error('Failed to delete the book: ' + error.message);
